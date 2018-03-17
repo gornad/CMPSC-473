@@ -1,0 +1,28 @@
+#! /bin/bash
+
+#Stops the script in case of a command failure
+set -e
+
+#Check if output is present and deletes it
+if [ -e data.txt ]; then 
+    rm data.txt
+fi 
+
+#Checks if the the graph for that process is present and deletes it
+if [ -e memory_utilization.png ]; then 
+   rm memory_utilization.png
+fi
+
+while true
+
+do 
+    #Checks if the PID is valid
+    if [[ $(pgrep $1)>0 ]]; then
+	pmap $(pgrep $1) | grep "total" | tr -dc '0-9' >> data.txt  #Uses pmap command to find Heap utulization and pipes it into truncate command to get desired value
+	echo >> data.txt
+	sleep 1s
+    else 
+	exit 
+    fi
+
+done

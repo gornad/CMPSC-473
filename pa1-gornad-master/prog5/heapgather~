@@ -1,0 +1,12 @@
+#! /bin/bash
+
+set -e
+while true
+
+do 
+    if[$(pgrep $1)>=0]; then
+	pmap $(pgrep $1) | grep total | tr -dc '0-9' >> data.txt 
+	echo >> data.txt
+	sleep 1s
+    fi
+done
