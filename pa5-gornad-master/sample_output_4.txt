@@ -1,0 +1,30 @@
+Head Movement: 2
+READ 0 from SECTOR 23421 [Track 3]
+THREAD 8 finished at 2.5471916
+Head Movement: 1
+READ 0 from SECTOR 12322 [Track 2]
+THREAD 9 finished at 2.7228278
+Head Movement: 0
+READ 0 from SECTOR 12345 [Track 2]
+THREAD 1 finished at 2.9372512
+Head Movement: 2
+WROTE 92 into SECTOR 32234 [Track 4]
+THREAD 7 finished at 2.11791932
+Head Movement: 2
+WROTE 183 into SECTOR 12346 [Track 2]
+THREAD 2 finished at 2.13573707
+Head Movement: 0
+READ 0 from SECTOR 12322 [Track 2]
+THREAD 3 finished at 3.4534617
+Head Movement: 3
+WROTE 394 into SECTOR 45623 [Track 5]
+THREAD 10 finished at 3.6662139
+Head Movement: 1
+READ 0 from SECTOR 32237 [Track 4]
+THREAD 4 finished at 3.8805888
+Head Movement: 1
+WROTE 415 into SECTOR 45624 [Track 5]
+THREAD 6 finished at 3.10922178
+Head Movement: 2
+WROTE 373 into SECTOR 23254 [Track 3]
+THREAD 5 finished at 3.13055967

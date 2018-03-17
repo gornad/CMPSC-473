@@ -1,0 +1,9 @@
+Head Movement: 1
+WROTE 183 into SECTOR 12345 [Track 2]
+THREAD 1 finished at 1.4215872
+Head Movement: 3
+READ 0 from SECTOR 42722 [Track 5]
+THREAD 2 finished at 3.4155167
+Head Movement: 3
+READ 183 from SECTOR 12345 [Track 2]
+THREAD 3 finished at 5.3723793
