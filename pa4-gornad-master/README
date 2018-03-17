@@ -1,0 +1,10 @@
+To compile and link the code:
+- Type in "make" in the command line
+- Warnings do not have direct impact on the code so please disregard.
+
+To run the code:
+- Change the clearly marked value in the main function in PA4.c to the name of the file to test
+- Make sure the input file is in the directory or else a segmentation fault appear.
+- Type in "PA4" in the command line to run code and test input.
+- In case the code hangs and outputs only part of the required output, make sure to please press "ctrl + c" to break and then run the code again. All inputs should give a valid output and the program can handle all cases.
+- The order of the logged data may change between trials. However, it will always remain correct.
