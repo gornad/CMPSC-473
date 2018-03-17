@@ -1,0 +1,50 @@
+#include "functions.h"
+#include <string.h>
+#define NUM_THREADS	85
+
+int main(int argc, char const *argv[]) {
+  thread_t threads[NUM_THREADS];
+  int rc;
+  long t;
+  int *arr;
+  void *tab[] = {counter,sleeping};
+  int flag = -1;
+
+  arr = (int *)malloc(100 * sizeof(int));
+  long long int sum = 0;
+
+  for(int i=0 ; i<100 ; i++)
+    arr[i] = 0;
+
+  if(argc<2)
+  {
+    printf("Argument missing !!\n");
+    return -1;
+  }
+
+  flag = !(strcmp(argv[1],"counter"))? 0 : 1;
+    
+  printf("Code under execution .. \n");
+  for(t=0;t<NUM_THREADS;t++){
+   
+    rc = CreateThread(tab[flag],1);
+    if (rc){
+      printf("ERROR; return code from pthread_create() is %d\n", rc);
+      exit(-1);
+      }
+    }
+
+  for (t=0 ; t<NUM_THREADS ; t++)
+    id = GetMyId();
+    SuspendThread(id);
+
+  for(int i=0 ; i<100 ; i++)
+  {
+    printf("arr[i] = %d \n", arr[i]);
+    sum += arr[i];
+  }
+
+  printf("Counter = %lld\n",sum);
+ CleanUp();
+  return 0;
+}
