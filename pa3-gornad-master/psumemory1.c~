@@ -1,0 +1,166 @@
+// INCLUDES
+#include <stdio.h>
+#include "psumemory.h"
+
+#define sizeOfRegion 209715200
+#define NUM 100
+#define algo 0 //Change to 1 for Worst Fit
+
+
+typedef struct __node_t {
+
+	int              size;
+	int 		 magic;
+	bool 		 free;
+	struct __node_t *next;
+} node_t;
+
+
+node_t *head; 
+
+int algorithm; // 0 = best-fit, 1 = worst-fit
+
+int psumeminit(int algo, int sizeOfRegion) {
+
+	algorithm = algo;
+	head = mmap(NULL, sizeOfRegion, PROT_READ|PROT_WRITE,MAP_ANON|MAP_PRIVATE, -1, 0);
+	head->size   = sizeOfRegion - sizeof(node_t);
+	head->next   = NULL;
+	head->magic = 1234567;
+	head->free = true;
+
+}
+
+void *psumalloc(int size) {
+		
+	if (size <= 0) {
+    		return NULL;
+	}
+	
+	int minimum_space = sizeOfRegion;
+	int maximum_space = 0;
+	node *current = head;
+	node *tosplit;
+
+	if(algorithm = 0) {	//Best-fit
+		while(current != NULL) {
+
+            		if( ((current->size - size) >=0) && ((current->size - size) <= minimum_space)) {
+                		minimum_space = current->size - size;
+				tosplit = current;
+            		}
+
+            		current = current->next;
+        	}
+	}
+	
+	else if (algorithm = 1) { //Worst-fit
+		while(current != NULL) {
+            		if( ((current->size - size) > maximum_space) ) {
+                		maximum_space = current->size - size;
+				tosplit = current;
+            		}
+
+            		current = current->next;
+        	}
+	}
+
+	else
+		return NULL;
+
+	return split(tosplit, size);
+}
+
+int psufree(void *ptr) {
+	
+    if(!ptr)
+        return -1;
+
+    // assume that a valid ptr is given
+    // we need the size and add that chunk
+    ptr =(void*)((char*)ptr-sizeof(node_t));
+
+    // check if the ptr was allocated by psumalloc
+    // by verifying the magic number
+    if(ptr->magic != 1234567)
+        return -1;
+
+
+    ptr->free = true;
+
+    coalesce();
+
+return 0;
+
+}
+
+void *split(node_t* current, int size) {
+	
+	node_t *prev = current;
+	prev->size = size - sizeof(node_t);
+	prev->free = false;
+	current = (node_t*) ((char*)current + size);
+	current->size = current->size - size - sizeof(node_t);
+	current->next = prev->next;
+	prev->next=current;
+	current->magic = 1234567;
+	current->free = true;
+
+	return ((char*)current + sizeof(node_t));
+}
+
+void coalesce() {
+
+	node_t* current = head;
+	while(currentPtr != NULL) {
+
+        	node_t* checkPtr = head, *prev = head;
+
+        // calculate the offset with size
+        	node_t* nextContigLocn = (node_t*)((char*)currentPtr + sizeof(node_t) + currentPtr->size);
+
+        while(checkPtr != NULL)
+        {
+            // if a match with nextContigLocn is found
+            if(checkPtr == nextContigLocn)
+            {
+                prevPtr->next = checkPtr->next;
+                int checkPtrTotalSize = checkPtr->size + sizeof(node_t);
+                currentPtr->size += checkPtrTotalSize;
+
+                // recalculate the new position based on the new size
+                nextContigLocn = (node_t*)((char*)currentPtr + sizeof(node_t) + currentPtr->size);
+
+                // if checkPtr is the head pointer
+                if(checkPtr == head)
+                {
+                    // shift the head
+                    head = head->next;
+                    checkPtr->next = NULL;
+                    checkPtr = head;
+                }
+                else
+                {
+                    // shift the pointer now
+                    checkPtr->next = NULL;
+                    checkPtr = prevPtr->next;
+                }
+            }
+
+            else
+            {
+                prevPtr = checkPtr;
+                checkPtr = checkPtr->next;
+            }
+        }
+
+        currentPtr = currentPtr->next;
+    }
+}
+
+void psumemdump() {
+
+
+
+}
+
